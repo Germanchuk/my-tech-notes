@@ -19,6 +19,9 @@
       "relation": "manyToOne",
       "target": "api::topic-item.topic-item",
       "inversedBy": "notes"
+    },
+    "content": {
+      "type": "richtext"
     }
   }
 }
