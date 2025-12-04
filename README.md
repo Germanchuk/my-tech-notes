@@ -1,3 +1,7 @@
+# Credentials to admin panel
+login: `vova.german1789@gmail.com`
+password: `Yfnfkm4br`
+
 # Strapi React Router 7 Starter
 
 A full-stack TypeScript starter project featuring Strapi headless CMS and React Router 7 with modern UI components.

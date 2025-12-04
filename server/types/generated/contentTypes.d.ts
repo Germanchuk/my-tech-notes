@@ -373,216 +373,44 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
-  collectionName: 'articles';
+export interface ApiCommonTopicCommonTopic extends Struct.CollectionTypeSchema {
+  collectionName: 'common_topics';
   info: {
-    description: '';
-    displayName: 'Article';
-    pluralName: 'articles';
-    singularName: 'article';
+    displayName: 'Common topic';
+    pluralName: 'common-topics';
+    singularName: 'common-topic';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
-    blocks: Schema.Attribute.DynamicZone<
-      [
-        'blocks.section-heading',
-        'blocks.person-card',
-        'blocks.newsletter',
-        'blocks.markdown',
-        'blocks.hero',
-        'blocks.faqs',
-        'blocks.content-with-image',
-        'blocks.card-grid',
-      ]
-    >;
-    content: Schema.Attribute.RichText;
-    contentTags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    featuredImage: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::article.article'
+      'api::common-topic.common-topic'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    relatedArticles: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::article.article'
+    topic_items: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::topic-item.topic-item'
     >;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
-  collectionName: 'authors';
+export interface ApiNoteNote extends Struct.CollectionTypeSchema {
+  collectionName: 'notes';
   info: {
-    displayName: 'Author';
-    pluralName: 'authors';
-    singularName: 'author';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
-    bio: Schema.Attribute.Text;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    fullName: Schema.Attribute.String;
-    image: Schema.Attribute.Media<'images'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::author.author'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    userId: Schema.Attribute.Relation<
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-  };
-}
-
-export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
-  collectionName: 'globals';
-  info: {
-    description: '';
-    displayName: 'Global';
-    pluralName: 'globals';
-    singularName: 'global';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    banner: Schema.Attribute.Component<'layout.banner', false>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    footer: Schema.Attribute.Component<'layout.footer', false>;
-    header: Schema.Attribute.Component<'layout.header', false>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::global.global'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiLandingPageLandingPage extends Struct.SingleTypeSchema {
-  collectionName: 'landing_pages';
-  info: {
-    description: '';
-    displayName: 'Landing Page';
-    pluralName: 'landing-pages';
-    singularName: 'landing-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    blocks: Schema.Attribute.DynamicZone<
-      [
-        'blocks.hero',
-        'blocks.section-heading',
-        'blocks.card-grid',
-        'blocks.content-with-image',
-        'blocks.markdown',
-        'blocks.person-card',
-        'blocks.faqs',
-        'blocks.newsletter',
-        'blocks.featured-articles',
-      ]
-    >;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::landing-page.landing-page'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiPagePage extends Struct.CollectionTypeSchema {
-  collectionName: 'pages';
-  info: {
-    description: '';
-    displayName: 'Page';
-    pluralName: 'pages';
-    singularName: 'page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    blocks: Schema.Attribute.DynamicZone<
-      [
-        'blocks.section-heading',
-        'blocks.person-card',
-        'blocks.newsletter',
-        'blocks.markdown',
-        'blocks.hero',
-        'blocks.faqs',
-        'blocks.content-with-image',
-        'blocks.card-grid',
-        'blocks.featured-articles',
-      ]
-    >;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiTagTag extends Struct.CollectionTypeSchema {
-  collectionName: 'tags';
-  info: {
-    description: '';
-    displayName: 'Tag';
-    pluralName: 'tags';
-    singularName: 'tag';
+    displayName: 'Note';
+    pluralName: 'notes';
+    singularName: 'note';
   };
   options: {
     draftAndPublish: false;
@@ -591,10 +419,46 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'> &
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::note.note'> &
       Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    topic_item: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::topic-item.topic-item'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTopicItemTopicItem extends Struct.CollectionTypeSchema {
+  collectionName: 'topic_items';
+  info: {
+    displayName: 'Topic item';
+    pluralName: 'topic-items';
+    singularName: 'topic-item';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    common_topics: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::common-topic.common-topic'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::topic-item.topic-item'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.Relation<'oneToMany', 'api::note.note'>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -1112,12 +976,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::article.article': ApiArticleArticle;
-      'api::author.author': ApiAuthorAuthor;
-      'api::global.global': ApiGlobalGlobal;
-      'api::landing-page.landing-page': ApiLandingPageLandingPage;
-      'api::page.page': ApiPagePage;
-      'api::tag.tag': ApiTagTag;
+      'api::common-topic.common-topic': ApiCommonTopicCommonTopic;
+      'api::note.note': ApiNoteNote;
+      'api::topic-item.topic-item': ApiTopicItemTopicItem;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

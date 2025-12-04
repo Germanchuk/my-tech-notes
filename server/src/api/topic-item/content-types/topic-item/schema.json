@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "topic_items",
+  "info": {
+    "singularName": "topic-item",
+    "pluralName": "topic-items",
+    "displayName": "Topic item"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "common_topics": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::common-topic.common-topic",
+      "inversedBy": "topic_items"
+    },
+    "notes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::note.note",
+      "mappedBy": "topic_item"
+    }
+  }
+}

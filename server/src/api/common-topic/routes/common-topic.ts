@@ -1,0 +1,7 @@
+/**
+ * common-topic router
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreRouter('api::common-topic.common-topic');
